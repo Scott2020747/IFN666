@@ -9,7 +9,7 @@ import Login from './Login';
 // import Tasks from './Tasks';
 // import Categories from './Categories';
 // import About from './About';
-// import Register from './Register';
+ import Register from './Register';
 // import NoPage from './NoPage';
 
 function App() {
@@ -25,8 +25,9 @@ function App() {
 
           {/* Protected Home route: if no token, redirect to /login */}
           <Route path="/" element={token ? <Home /> : <Navigate to="/login" />} />
+          <Route path="register" element={<Register />} />
 
-          {/* If you are adding more routes as your tutorial suggests,
+          {/* If you are adding more routes,
               consider wrapping them in a common layout.
               For example:
               <Route path="/" element={<Layout />}>

@@ -15,7 +15,7 @@ const app = express();
 // Security middleware
 app.use(helmet());
 app.use(cors({
-  origin: 'http://localhost:5000', // Adjust this to your client domain as needed
+  origin: 'https://n11916095.ifn666.com', 
   methods: 'GET,POST,PUT,DELETE,OPTIONS'
 }));
 

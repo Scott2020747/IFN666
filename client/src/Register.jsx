@@ -6,24 +6,25 @@ import { Link, useNavigate } from 'react-router-dom';
 
 function Register() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ username: '', password: '' });
+  // Added email to formData
+  const [formData, setFormData] = useState({ username: '', password: '', email: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
   const handleChange = (e) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/v1/auth/register', formData);
+      await axios.post('/api/v1/auth/register', formData);
       setSuccess('Registration successful! Redirecting to login...');
-      setTimeout(() => {
-        navigate('/login');
-      }, 2000);
+      setTimeout(() => navigate('/login'), 2000);
     } catch (err) {
-      setError('Registration failed. Please try again.');
+      const msg = err.response?.data?.message || 'Registration failed. Please try again.';
+      setError(msg);
     }
   };
 
@@ -44,6 +45,18 @@ function Register() {
           required
           mb="sm"
         />
+
+        <TextInput
+          label="Email"
+          name="email"
+          type="email"
+          placeholder="Your email address"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          mb="sm"
+        />
+
         <PasswordInput
           label="Password"
           name="password"
@@ -53,6 +66,7 @@ function Register() {
           required
           mb="sm"
         />
+
         <Group position="apart" mt="md">
           <Anchor component={Link} to="/login" size="sm">
             Already have an account? Login

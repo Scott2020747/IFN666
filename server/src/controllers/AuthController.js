@@ -30,13 +30,13 @@ exports.login = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, email } = req.body;
   try {
-    const existingUser = await User.findOne({ username });
+    const existingUser = await User.findOne({ username }, {email});
     if (existingUser) {
-      return res.status(400).json({ message: 'Username already taken' });
+      return res.status(400).json({ message: 'Username or email already taken' });
     }
-    const user = new User({ username, password });
+    const user = new User({ username, password, email });
     await user.save();
     res.status(201).json({ message: 'User registered successfully' });
   } catch (err) {
