@@ -1,47 +1,53 @@
-// src/App.jsx
-import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { MantineProvider } from '@mantine/core';
+import React, { useState } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
-// If you have a Layout or other pages, import them as well
-// import Layout from './Layout';
-// import Tasks from './Tasks';
-// import Categories from './Categories';
-// import About from './About';
- import Register from './Register';
-// import NoPage from './NoPage';
+import Register from './Register';
+import Project   from './Project';
+import Material  from './Material';
+import Labour    from './Labour';
 
 function App() {
-  // Retrieve token from localStorage to check if the user is authenticated
-  const token = localStorage.getItem('token');
+  const [token, setToken] = useState(localStorage.getItem('token'));
 
   return (
-    <MantineProvider>
-      <BrowserRouter basename="/construction-cost-estimator">
-        <Routes>
-          {/* If a token exists, redirect /login to Home; otherwise, render the Login page */}
-          <Route path="/login" element={token ? <Navigate to="/" /> : <Login />} />
+    <Routes>
+      {/* 3) Public pages */}
+      <Route
+        path="/login"
+                element={
+                  token
+                    ? <Navigate to="/" replace />
+                    : <Login onLogin={setToken} />
+                }
+      />
+      <Route path="/register" element={<Register />} />
 
-          {/* Protected Home route: if no token, redirect to /login */}
-          <Route path="/" element={token ? <Home /> : <Navigate to="/login" />} />
-          <Route path="register" element={<Register />} />
+      {/* Protected layout + nested pages */}
+      <Route
+        path="/"
+        element={
+                    token
+                      ? <Home onLogout={() => setToken(null)} />
+                      : <Navigate to="/login" replace />
+                  }
+      >
+        {/* default when you hit “/” */}
+        <Route index       element={<Project />} />
+        <Route path="project"  element={<Project />} />
+        <Route path="material" element={<Material />} />
+        <Route path="labour"   element={<Labour />} />
 
-          {/* If you are adding more routes,
-              consider wrapping them in a common layout.
-              For example:
-              <Route path="/" element={<Layout />}>
-                <Route path="tasks" element={<Tasks />} />
-                <Route path="categories" element={<Categories />} />
-                <Route path="about" element={<About />} />
-                <Route path="register" element={<Register />} />
-                <Route path="*" element={<NoPage />} />
-              </Route>
-          */}
-        </Routes>
-      </BrowserRouter>
-    </MantineProvider>
+        {/* catch‐all inside protected */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Route>
+
+      {/* 5) Catch-all back to either home or login */}
+      <Route
+        path="*"
+        element={<Navigate to={token ? '/' : '/login'} replace />}
+      />
+    </Routes>
   );
 }
-
 export default App;

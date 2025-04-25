@@ -1,0 +1,55 @@
+/* src/AuthenticationTitle.module.css */
+
+/* full-page dark background and center the card */
+.wrapper {
+  background-color: #1A1B1E;   /* Mantine dark[7] */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Titles (“Welcome back!” and you can reuse for “Construction Cost Estimator”) */
+.title {
+  color: #F8F9FA;             /* near-white */
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+/* The subtitle text under the title */
+.subtitle {
+  color: #FFFFFF !important;  /* force white */
+  text-align: center;
+  margin-top: 0.25rem;
+}
+
+/* All links (“Create account”, “Forgot password?”) */
+.link {
+  color: #4DABF7;             /* Mantine blue[4] */
+  text-decoration: none;
+  cursor: pointer;
+}
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Override Paper (the card) to use the correct dark-grey backgrounds */
+.form {
+  background-color: #25262B !important; /* Mantine dark[6] */
+  border: 1px solid #35363A !important; /* Mantine dark[5] */
+}
+
+/* ── NEW GLOBAL OVERRIDES ── */
+/* Force Mantine TextInput & PasswordInput labels to white */
+:global(.mantine-TextInput-label),
+:global(.mantine-PasswordInput-label) {
+  color: #FFFFFF !important;
+}
+/* force your error text to white */
+.errorText {
+  color: #FFFFFF !important;
+  margin-top: 0.5rem; /* optional: match your mt="sm" spacing */
+}
+

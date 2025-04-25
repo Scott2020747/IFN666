@@ -1,0 +1,53 @@
+/* NavbarSimpleColored.module.css */
+
+.navbar {
+    width: 250px;
+    background-color: #2c3e50;
+    color: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .navbarMain {
+    flex: 1;
+    overflow-y: auto;
+  }
+  
+  .header {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .link:hover,
+  .link[data-active] {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+  
+  .linkIcon {
+    margin-right: 0.75rem;
+  }
+  
+  .version {
+    font-size: 0.875rem;
+  }
+  
+  .footer {
+    padding: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+  }
+  
